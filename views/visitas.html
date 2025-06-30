@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reporte de Visitas a Inmuebles</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+  <div class="container">
+    <h1>Visitas a Inmuebles</h1>
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Inmueble</th><th>Cantidad de Visitas</th>
+        </tr>
+      </thead>
+      <tbody id="tablaVisitas"></tbody>
+    </table>
+  </div>
+
+  <script>
+    fetch('/api/reportes/visitas')
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.getElementById('tablaVisitas');
+        data.forEach(row => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${row.inmueble}</td>
+              <td>${row.cantidad_visitas}</td>
+            </tr>`;
+        });
+      });
+  </script>
+</body>
+</html>
